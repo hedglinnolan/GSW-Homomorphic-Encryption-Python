@@ -10,18 +10,14 @@ from qiskit.tools.visualization import plot_histogram, plot_state_qsphere, plot_
 import Qconfig
 import quantumFunctions as qf
 
-#Create blank variables for the quantum register, classical register, and the resulting quantum circuit. Will change when we call createQC function
-qr = 0
-cr = 0
-qc = 0
-
 #Store values for number of qubits and the qubits being addressed 
 gateDepth = 2
+qr,cr,qc = qf.createQC(gateDepth)
+
+#Creating a circuit to prepare the bell state. All functions can be found in quantumFunctions.py
 qubitI = 0
 qubitJ = 1
 
-#Creating a circuit to prepare the bell state. All functions can be found in quantumFunctions.py
-qf.createQC(gateDepth)
 qf.bellState(qubitI,qubitJ,qc,qr)
 
 #Initialize blank circuits to perform measurments. Will change when we call basisMeasure and hadamardMeasure
