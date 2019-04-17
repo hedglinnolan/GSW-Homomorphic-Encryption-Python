@@ -1,11 +1,18 @@
 import qiskit as qk
 import Qconfig
 from qiskit import IBMQ
+from qiskit.providers.ibmq import least_busy
+from qiskit import BasicAer
 
 #Choosing a quantum computer as the backend for performing the task
-IBMQ.save_account(Qconfig.APItoken)
+IBMQ.enable_account(Qconfig.APItoken)
+IBMQ.save_account(Qconfig.APItoken, overwrite = True)
 IBMQ.load_accounts()
-ibmqxf = IBMQ.get_backend('ibmq_16_melbourne')
+#print(IBMQ.backends())
+ibmqxf = least_busy(IBMQ.backends())
+sim = BasicAer.get_backend('qasm_simulator')
+print(sim)
+#print(ibmqxf)
 
 #Creating the quantum register
 def createQC(n):

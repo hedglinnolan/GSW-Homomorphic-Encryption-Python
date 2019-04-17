@@ -9,6 +9,8 @@ import qiskit as qk
 from qiskit.tools.visualization import plot_histogram, plot_state_qsphere, plot_bloch_vector, plot_bloch_multivector, circuit_drawer
 import Qconfig
 import quantumFunctions as qf
+import seaborn as sns
+sns.set()
 
 #Store values for number of qubits and the qubits being addressed 
 gateDepth = 2
@@ -20,12 +22,9 @@ qubitJ = 1
 
 qf.bellState(qubitI,qubitJ,qc,qr)
 
-#Initialize blank circuits to perform measurments. Will change when we call basisMeasure and hadamardMeasure
-measure_Z = 0
-measure_X = 0
-
-qf.basisMeasure(qr,cr)
-qf.hadamardMeasure(qr,cr)
+#Initialize measurement circuits
+measure_Z = qf.basisMeasure(qr,cr)
+measure_X = qf.hadamardMeasure(qr,cr)
 
 #Split the original circuit to perform Z measurment and X measurement
 #Append circuits using the addition operator
@@ -36,23 +35,29 @@ test_X = qc + measure_X
 qc.draw()
 
 #Running the circuits on a quantum simulator with 1000 trials
-job_1 = qk.execute([test_Z,test_X], backend = 'local_qasm_simulator',shots = 1000)
+job_1 = qk.execute([test_Z,test_X], backend = qf.sim, shots = 1000)
 result_1 = job_1.result()
 
-result_1.get_counts(test_Z)
-result_1.get_counts(test_X)
+counts_1Z = result_1.get_counts(test_Z)
+counts_1X = result_1.get_counts(test_X)
+
+print(counts_1Z)
+print(counts_1X)
 
 #psi = result_1.get_statevector(test_Z) #Should return the equation for a bell state
 #plot_state_qsphere(psi) #plotting it on the bloch sphere!
 
 #Running the circuits on an actual IBM quantum computer (refer to quantumFunctions.py for name of backend)
-job_2 = qk.execute([test_Z,test_X], backend = 'ibmqxf', shots = 1000)
+job_2 = qk.execute([test_Z,test_X], backend = qf.ibmqxf, shots = 1000)
 result_2 = job_2.result()
 
-result_2.get_counts(test_Z)
-result_2.get_counts(test_X)
+counts_2Z = result_2.get_counts(test_Z)
+counts_2X = result_2.get_counts(test_X)
+
+print(counts_2Z)
+print(counts_2X)
 
 #Plot the results. There are a ton of different ways to plot using qiskit
-legend = ['QASM Simulator','Melbourne QC (16 qubits)']
-plot_histogram([result_1.get_counts(test_Z), result_2.get_counts(test_Z)], legend = legend, title='Entanglement Generation Fidelity (computational basis)')
-plot_histogram([result_1.get_counts(test_X), result_2.get_counts(test_X)], legend=legend, title= 'Entanglement Generation Fidelity (Hadamard basis)')
+legend = ['QASM Simulator',qf.ibmqxf]
+plot_histogram([counts_1Z, counts_2Z], legend = legend, title='Entanglement Generation Fidelity (computational basis)').savefig('standard.png')
+plot_histogram([counts_1X, counts_2X], legend = legend, title= 'Entanglement Generation Fidelity (Hadamard basis)').savefig('hadamard.png')
