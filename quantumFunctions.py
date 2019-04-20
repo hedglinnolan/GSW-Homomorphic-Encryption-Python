@@ -19,7 +19,7 @@ def createQC(n):
     '''Creates a quantum circuit of depth n (i.e. n qubits being used)
 
     In: n - # of qubits desired
-    
+
     Out:qr - the register of n qubits to be manipulated
         cr - the corresponding classical register that will be used to store measurements of qubits
         qc - the actual quantum circuit
@@ -38,7 +38,7 @@ def bellState(i,j,qc,qr):
         j - the second qubit. Controlled by CNOT operation driven by qubit i
         qc - the quantum circuit being changed
         qr - the register where qubits i and j are located
-    
+
     Out: Appends the gates needed to create a bell state to the existing quantum circuit.
     '''
     qc.h(qr[i]) #qr[i] is the ith qubit in the quantum register
@@ -50,7 +50,7 @@ def GHZState(i,j,qc,qr):
 
     In: i - the first qubit. Hadamard operation is performed on this qubit. Drives the entanglement operation for all subsequency qubits using CNOT gate.
         j - the final qubit to be entangled.
-    
+
     Out: Appends the gates needed to create a GHZ state to the existing quantum circuit.
     '''
     qc.h(qr[i])
@@ -62,7 +62,7 @@ def basisMeasure(qr,cr):
     '''Creates a mini-circuit that measures the outcome of a larger circuit in the basis state (i.e. |0> and |1>).
 
     In: n/a
-    
+
     Out: Appends the gates needed to perform a measurement in the standard computation basis.
     '''
     measure_Z = qk.QuantumCircuit(qr,cr)
@@ -73,9 +73,9 @@ def basisMeasure(qr,cr):
 def hadamardMeasure(qr,cr):
     '''Creates a mini-circuit that measures the outcome of a larger circuit in the hadamard state (i.e. (|0> + |1>)/sqrt(2) and (|0> - |1>)/sqrt(2)).
     All that is really different from the computational measurement function is that we perform a hadamard gate before measuring.
-    
+
     In: n/a
-    
+
     Out: Appends the gates needed to perform a measurement in the hadamard basis.
     '''
     measure_X = qk.QuantumCircuit(qr,cr)
