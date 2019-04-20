@@ -1,5 +1,7 @@
 ## Quantum Homomorphic Encryption
 
+Nolan Hedglin, Andrew Reilley, Kade Phillips
+
 #### Timeline
 
 * Mon 22 April - Problem set 4 due
