@@ -9,6 +9,7 @@ import qiskit as qk
 from qiskit.tools.visualization import plot_histogram, plot_state_qsphere, plot_bloch_vector, plot_bloch_multivector, circuit_drawer
 import Qconfig
 import quantumFunctions as qf
+import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set()
 
