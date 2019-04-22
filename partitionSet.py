@@ -7,23 +7,23 @@ import threading
 import time
 
 
-''' This file creates a random list of numbers and then partitions the list into two disjoint sets such that the distance between
-them is minimized.
+''' This file creates a random list of numbers and then partitions the list into two disjoint sets such that the sum distance between
+them is minimized (i.e. min |∑a∈S1−∑a∈S2|). I converted the set to be partitioned to see if the output using that ciphertext result would be equal to the
+output using plaintext. It was not, but maybe a fully homomorphic scheme would yield different results.
 '''
 
-#A mini progress tracker to see how long the program has been running
+#A mini progress tracker to see if the program is still running. Updates every 10 seconds
 def progress():
   threading.Timer(10.0, progress).start()
   print('still running...')
-
 progress()
 
 #Generate a random list of numbers to be partitioned
 np.random.seed(10)
-n=5
+n=5 #number of elements in the list
 number_list = partition.random_number_list(n, weight_range=25)
 
-#Turn the number list into ciphertext
+#Turn the number list into ciphertext (I use RSA encryption here to check out if its homomorphic properties hold for this task)
 m = 0x1d7777c38863aec21ba2d91ee0faf51
 e = 0x5abb
 d = 0x1146bd07f0b74c086df00b37c602a0b
@@ -36,9 +36,6 @@ qubitOp, offset = partition.get_partition_qubitops(np.array(c_list))
 algo_input = EnergyInput(qubitOp)
 print(number_list)
 print(c_list)
-
-#Encrypt the number list using RSA encryption
-
 
 to_be_tested_algos = ['ExactEigensolver', 'VQE']
 #print(to_be_tested_algos)
@@ -88,7 +85,7 @@ params = {
     'variational_form': var_form_cfg
 }
 
-#Choose your backend and run the partition task using that backend
+#Choose your backend and run the partition task using that backend. I chose a simulator for this application.
 backend = Aer.get_backend('statevector_simulator')
 result = run_algorithm(params, algo_input, backend=backend)
 
