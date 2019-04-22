@@ -14,7 +14,7 @@ Nolan Hedglin, Andrew Reilley, Kade Phillips
 
 - [ ] 1. Understand GSW paper (1)
 - [ ] 2. Understand Urmila's paper (2)
-- [ ] 3. Look at linear optimization algorithm on IBM Q (3)
+- [ X ] 3. Look at linear optimization algorithm on IBM Q (3)
 - [ ] 4. Figure out how classical data interacts with IBM Q
 
 #### Milestone
