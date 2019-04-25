@@ -2,8 +2,12 @@
 GSW transforms a plaintext bit into a ciphertext matrix and relies on the Decisional Learning With Errors
 assumption for computational security.
 
-Authors: Nolan Hedglin, Kade Phillips, Andrew Reilley
-Institution: MIT'''
+It imports several files where key generation and functions are defined.
+
+Authors: Nolan Hedglin, Kade Phillips, Andrew Reilley'''
 
 import numpy as np
-
+import gswEncrypt as enc
+import gswDecrypt as dec
+import gswUtilities as utils
+import keygen as kg
