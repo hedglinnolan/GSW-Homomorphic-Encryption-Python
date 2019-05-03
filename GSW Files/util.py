@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.linalg import block_diag
+import random
 
 # Function to detect prime number 
 def sieve(n, prime): 
@@ -15,7 +16,7 @@ def sieve(n, prime):
         p += 1
           
                   
-def generateSophieGermainPrimes(k): 
+def generateSafePrimes(k): 
 	''' We have made array till 2*n +1 so that we can check prime number till that and conclude about sophie german prime .
 		
 	Input: k - security parameter
