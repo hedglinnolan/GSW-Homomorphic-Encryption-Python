@@ -12,6 +12,10 @@ Nolan Hedglin, Andrew Reilley, Kade Phillips
 
 GSW!
 
+Nolan: Keygen
+Andrew: Dec
+Kade: Enc, make Adomasven's implementation
+
 #### Literature
 
 (1) Homomorphic Encruption from Learning with Errors: Conceptually-simpler, Asymptotically-faster, Attribute-based
