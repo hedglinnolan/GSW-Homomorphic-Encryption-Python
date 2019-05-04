@@ -6,8 +6,7 @@ import random
 def sieve(n, prime): 
     p = 2
     while( p * p <= n ): 
-        # If prime[p] is not changed,   
-        # then it is a prime 
+        # If prime[p] is not changed, then it is a prime 
         if (prime[p] == True): 
               
             # Update all multiples of p 

@@ -5,54 +5,33 @@ import random
 from util import *
 from galois import FFE
 
-def keyGenParams(k):
-	''' Generates the secret key and pulic key given a security parameter k.
+def keyGen(k):
+	''' Input: k - security parameter
 
-	Input:  k - security parameter (i.e. # of bits in key)
-
-	Output: q - safe prime used for all operations
-			l - log(q) (used for matrix dimensions)
-			m - k*l (also used for dimensions)
+		Output: t,B - secret and public key
 	'''
 	q_array = generateSafePrimes(k)
 	q = random.choice(q_array)
 	l = np.ceil(np.log2(q))
 	m = k*l
-	return q, l, m
+	t = np.arange(k)
+	for i in range(k-1):
+		t[i] = int(float(FFE(random.randrange(q),q))*(-1))
+	t[k-1] = 1
+	S = t[:k-1]*(-1)
+	e = np.random.normal(size = int(m))
+	A = np.array([[float(FFE(random.randrange(q),q)) for y in range(int(k-1))] for x in range(int(m))])
+	SAE = np.dot(S,np.transpose(A)) + e# Calculating S*A+e
+	SAE = np.transpose([SAE]) # This dumb line of code is so the dimensions work out. I hate python so much (#matlab4lyfe)
+	B = np.transpose(np.hstack([A,SAE]))
+	return t,B,e
 
-def secretKey(k):
-	''' Input: k - security paramter
 
-		Output: t - binary secrety key in string form
-	'''
-	q,l,m = keyGenParams(k)
-	S = FFE(random.randrange(q),q)
-	print(S)
-	t = bin(int(S)).zfill(k-1) + str(1)
-	print(t)
-	return t
-
-def errorVec(k):
-	''' Input: k - security paramter
-
-		Output: e - error vector used for GSW encryption
-	'''
-
-def publicKey(k):
-	''' Input: k - security parameter
-		Output: B - n x m matrix used as public key
-	'''
-
-def keyGen(k):
-	''' Input: k - security paramter
-
-		Output: t,B - secret and public keys for user
-	'''
-	t = secretKey(k)
-	B = publicKey(k)
-	return t, B
-
-k = [5,10,20] # security parameter
+k = [7] # security parameter
 
 for i in k:
-	secretKey(i)
+	t,B, e = keyGen(i)
+	#Check for correctness (t*B = e ideally)
+	check = np.dot(t,B)
+	print(check)
+	print(e)	
