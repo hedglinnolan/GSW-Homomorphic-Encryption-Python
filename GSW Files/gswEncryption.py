@@ -2,3 +2,5 @@
 and puts them together into one large function.'''
 
 import numpy as np
+from keygen import keyGen
+from util import *
