@@ -14,7 +14,6 @@ def keyGen(k):
 	q = random.choice(q_array).astype(np.int64)
 	l = np.ceil(np.log2(q)).astype(np.int64)
 	m = k*l
-	print(m.dtype)
 	t = np.arange(k, dtype = np.int64)
 	for i in range(k-1):
 		t[i] = int(FFE(random.randrange(q),q))*(-1)
