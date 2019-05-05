@@ -12,9 +12,9 @@ Nolan Hedglin, Andrew Reilley, Kade Phillips
 
 GSW!
 
-Nolan: Keygen
+Nolan: Keygen (Done!)
 Andrew: Dec
-Kade: Enc, make Adomasven's implementation
+Kade: Enc, make Adomasven's implementation (Done!)
 
 #### Literature
 
