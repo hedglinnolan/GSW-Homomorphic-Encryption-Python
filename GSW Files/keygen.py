@@ -22,9 +22,7 @@ def keyGen(k):
 	S = t[:k-1]*(-1)
 	e = np.rint(np.random.normal(size = int(m))).astype(np.int64)
 	A = np.array([[int(FFE(random.randrange(q),q)) for y in range(int(k-1))] for x in range(int(m))])
-	SAE = np.dot(S,np.transpose(A)) + e # Calculating S*A+e
-	SAE = np.transpose([SAE]) # This dumb line of code is so the dimensions work out. I hate python so much (#matlab4lyfe)
-	B = np.transpose(np.hstack([A,SAE]))
+	B = np.transpose(np.hstack([A,np.transpose([np.dot(S,np.transpose(A)) + e])]))
 	return q,t,B,e
 
 
