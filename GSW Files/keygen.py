@@ -24,14 +24,14 @@ def keyGen(k):
 	SAE = np.dot(S,np.transpose(A)) + e # Calculating S*A+e
 	SAE = np.transpose([SAE]) # This dumb line of code is so the dimensions work out. I hate python so much (#matlab4lyfe)
 	B = np.transpose(np.hstack([A,SAE]))
-	return t,B,e
+	return q,t,B,e
 
 
 k = [7] # security parameter
 
 for i in k:
-	t, B, e = keyGen(i)
+	q, t, B, e = keyGen(i)
 	#Check for correctness (t*B = e ideally)
-	check = np.dot(t,B)
+	check = np.dot(t,B)%q
 	print(check)
-	print(e)	
+	print(e%q)	
