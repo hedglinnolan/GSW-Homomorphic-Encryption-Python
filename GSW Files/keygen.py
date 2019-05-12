@@ -22,13 +22,13 @@ def keyGen(k):
 	e = np.rint(np.random.normal(size = int(m))).astype(np.int64)
 	A = np.array([[int(FFE(random.randrange(q),q)) for y in range(int(k-1))] for x in range(int(m))])
 	B = np.transpose(np.hstack([A,np.transpose([np.dot(S,np.transpose(A)) + e])]))
-	return q,t,B,e
+	return q,t,B,e,S
 
 
 k = [25] # security parameter
 
 for i in k:
-	q, t, B, e = keyGen(i)
+	q, t, B, e, S = keyGen(i)
 	#Check for correctness (t*B = e ideally)
 	check = np.dot(t,B)%q
 	print(check)
