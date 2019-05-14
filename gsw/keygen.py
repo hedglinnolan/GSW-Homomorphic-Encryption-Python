@@ -42,7 +42,7 @@ def keyGen(k):
     return q,s,t,e,A,B
 
 if __name__ == '__main__':
-    k = 12 # security parameter
+    k = 56 # security parameter
 
     q,s,t,e,A,B = keyGen(k)
     check = np.dot(t,B)
