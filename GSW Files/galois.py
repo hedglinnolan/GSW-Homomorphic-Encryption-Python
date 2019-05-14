@@ -84,7 +84,7 @@ def is_group(elems, addition=addition):
     """A proof by contradiction that the set 'elems' is not a Group
     under 'addition'."""
     #To prove by contradiction that there is an additive identity,
-    #we will assume that the opposite is true. 
+    #we will assume that the opposite is true.
     zero = None
     #The following is a proof by cases that an additive identity exists
     #and that addition is a closure.
@@ -197,10 +197,10 @@ def is_field(elems, addition=addition, multiplication=multiplication):
         return False, "No multiplicative identity"
     #the element is a field
     return True
-        
+
 class FFE:
     """An element of a finite field."""
-    
+
     def __init__(self, i, p, field=None, mulinv=None, parent=None):
         self.i = i
         self.p = p
@@ -306,7 +306,7 @@ class FFE:
             i+=1
             result, temp = self.__smart_pow__(i,temp)
         return i
-    
+
     def __neg__(self):
         return FFE((self.p-self.i)%self.p,self.p,field=self.field,parent=self.parent)
 
@@ -340,7 +340,7 @@ class FFE:
 
     def __long__(self):
         return long(self.i)
-    
+
     def __oct__(self):
         return oct(self.i)
 
@@ -367,7 +367,7 @@ class Polynomial:
         zero = self._zero_()
         while self.deg() > 0 and self.coefficients[-1]==zero:
             self.coefficients.pop()
-        
+
     def to_Zmod(self, mod):
         coefficients = self.coefficients
         return Polynomial([FFE(c%mod,mod) for c in coefficients])
