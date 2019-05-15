@@ -45,13 +45,13 @@ def keygen(k):
     n = k
     m = n*l
     s = np.random.randint(q, size=n-1, dtype=np.int64).astype(datatype)
-    t = np.append(-s, 1)
+    t = np.append(s, 1)
     stat("Generating error vector")
     e = np.rint(np.random.normal(scale=1.0, size=m)).astype(np.int).astype(datatype) # This makes me die a little bit on the inside.
     stat("Generating random matrix")
     A = np.random.randint(q, size=(n-1, m), dtype=np.int64).astype(datatype)
     stat("Generating public key")
-    B = np.vstack((A, np.dot(s, A) + e)) % q
+    B = np.vstack((-A, np.dot(s, A) + e)) % q
 
     check = np.dot(t, B) % q
     okay = np.all(check == (e % q))

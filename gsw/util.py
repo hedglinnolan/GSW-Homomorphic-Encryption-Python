@@ -10,7 +10,7 @@ def stat(msg):
     now = time()
     if start is None:
         start = now
-    print("%10.4f  %s" % (now-start, msg))
+    print("\x1B[2m%10.4f  %s\x1B[0m" % (now-start, msg))
 
 def powmod(a, b, m):
     """ Returns the power a**b % m """
