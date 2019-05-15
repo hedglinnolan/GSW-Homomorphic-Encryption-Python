@@ -52,3 +52,11 @@ def generateSafePrime(k):
         p = gen_prime(k-1)
         sp = 2*p + 1
     return sp
+
+def text2array(txt):
+    ary = []
+    for row in txt.split('\n'):
+        if row.strip() != '':
+            row = row.replace('[', '').replace(']', '').strip()
+            ary.append([int(x) for x in row.split()])
+    return np.array(ary, dtype=np.int64)
