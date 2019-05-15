@@ -5,15 +5,28 @@ from math import ceil, log2
 import numpy as np
 import random
 
-def keyGen(k):
-    ''' Input: k - security parameter
-        Output: t,B - secret and public key
-    '''
+class GSWKeys:
+    def __init__(self, k, q, t, e, A, B, datatype):
+        self.n  = k
+        self.q  = q
+        self.l  = ceil(log2(q))
+        self.m  = self.n * self.l
+        self.SK = t
+        self.e  = e
+        self.A  = A
+        self.PK = B
+        self.datatype = datatype
+
+def keygen(k):
+    if k > 29:
+        datatype = 'object'
+    else:
+        datatype = np.int64
     # pick a random Sophie Germain prime [q] in the range 2...2**k
     #   and get its bit length [l]
-    stat("Generating modulus [q]")
+    stat("Generating modulus")
     q = generateSophieGermainPrime(k)
-    l = ceil(log2(q)) # l = np.ceil(np.log2(q)).astype(np.int64)
+    l = ceil(log2(q))
     print(" "*12 + "q = %d" % q)
     #
     # the gadget matrix [G] is an n×m matrix (n rows, m = n×l columns)
@@ -28,26 +41,26 @@ def keyGen(k):
     # the public key [B] is (   A  )
     #                       ( sA+e )
     #
-    stat("Generating secret key [t]")
+    stat("Generating secret key")
     n = k
     m = n*l
-    s = np.random.randint(q, size=n-1, dtype=np.int64)
+    s = np.random.randint(q, size=n-1, dtype=np.int64).astype(datatype)
     t = np.append(-s, 1)
-    stat("Generating error vector [e]")
-    e = np.rint(np.random.normal(scale=1.0, size=m)).astype(np.int64)
-    stat("Generating random matrix [A]")
-    A = np.random.randint(q, size=(n-1, m), dtype=np.int64)
-    stat("Generating public key [B]")
-    B = np.vstack((A, np.dot(s, A) + e))
-    return q,s,t,e,A,B
+    stat("Generating error vector")
+    e = np.rint(np.random.normal(scale=1.0, size=m)).astype(np.int).astype(datatype) # This makes me die a little bit on the inside.
+    stat("Generating random matrix")
+    A = np.random.randint(q, size=(n-1, m), dtype=np.int64).astype(datatype)
+    stat("Generating public key")
+    B = np.vstack((A, np.dot(s, A) + e)) % q
+
+    check = np.dot(t, B) % q
+    okay = np.all(check == (e % q))
+    if okay:
+        stat("Keygen check passed") # t⋅B == e
+    else:
+        stat("\x1B[31;1mKeygen check failed\x1B[0m") # t⋅B != e
+
+    return GSWKeys(k, q, t, e, A, B, datatype)
 
 if __name__ == '__main__':
-    k = 56 # security parameter
-
-    q,s,t,e,A,B = keyGen(k)
-    check = np.dot(t,B)
-    okay = np.all(check == e)
-    if okay:
-        stat("Keygen check passed (t⋅B == e)")
-    else:
-        stat("Keygen check failed (t⋅B != e)")
+    keygen(48)

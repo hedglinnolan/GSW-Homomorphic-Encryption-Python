@@ -6,7 +6,7 @@ assumption for computational security.
 Authors: Nolan Hedglin, Kade Phillips, Andrew Reilley '''
 
 import numpy as np
-import util
-import keygen
-import enc
-import dec
+from util   import *
+from keygen import keygen
+from enc    import encrypt
+from dec    import decrypt
