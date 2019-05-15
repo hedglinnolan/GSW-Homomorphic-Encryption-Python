@@ -34,7 +34,7 @@ while True:
     ciphertext = fh.read()
     fh.close()
 
-    cf = text2array(ciphertext) # % keys.q
+    cf = text2array(ciphertext) % keys.q
 
     print('\x1B[0m')
     f = decrypt(keys, cf)
