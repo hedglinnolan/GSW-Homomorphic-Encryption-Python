@@ -1,25 +1,18 @@
-## Quantum Homomorphic Encryption
+## GSW Homomorphic Encryption in Python
 
 Nolan Hedglin, Andrew Reilley, Kade Phillips
 
-#### Calendar
+Department of Electrical Engineering and Computer Science, MIT
 
-* Mon 6 May - Problem set 5 due
-* Mon 6 May - Project presentations begin
-* Wed 15 May - Written project due
+#### Introduction
 
-#### Todo
+This repository is an instantiation of Gentry-Sahai-Waters homomorphic encryption that supports integer addition and scaling. This program currently does not support multiplication between two ciphertexts.
 
-GSW!
-
-Nolan: Keygen (Done!)
-Andrew: Dec
-Kade: Enc, make Adomasven's implementation (Done!)
 
 #### Literature
 
-(1) Homomorphic Encruption from Learning with Errors: Conceptually-simpler, Asymptotically-faster, Attribute-based
+(1) Homomorphic Encruption from Learning with Errors: Conceptually-simpler, Asymptotically-faster, Attribute-based (Gentry et al. 2013)
 
-(2) Classical Homomorphic Encryption for Quantum Circuits
+(2) Classical Homomorphic Encryption for Quantum Circuits (Mahadev 2018)
 
-(3) Performing Homomorphic Encryption Experiments on IBM's Cloud Quantum Computing Platform
+(3) Homomorphic Encryption for Machine Learning (Minelli 2018)
